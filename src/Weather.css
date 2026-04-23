@@ -39,10 +39,21 @@
   margin: 10px 0;
 }
 
-.Weather img {
-  height: 64px;
-  width: 64px;
-  margin-right: 10px;
+.weather-icon {
+  animation: float 2.5s ease-in-out infinite;
+  margin-top: 10px;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 .Weather .unit {

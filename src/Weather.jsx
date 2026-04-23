@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./Weather.css";
+import WeatherIcon from "./WeatherIcon";
 
 export default function Weather() {
   const [city, setCity] = useState("");
@@ -12,7 +13,7 @@ export default function Weather() {
       city: response.data.city,
       time: response.data.time,
       description: response.data.condition.description,
-      icon: response.data.condition.icon_url,
+      icon: response.data.condition.icon,
       temperature: Math.round(response.data.temperature.current),
       humidity: response.data.temperature.humidity,
       wind: response.data.wind.speed,
@@ -20,6 +21,8 @@ export default function Weather() {
   }
 
   function search() {
+    if (!city.trim()) return;
+
     const apiKey = "cb60bbeo7bd602d062ff8d664eta0043";
     const apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
     axios.get(apiUrl).then(handleResponse);
@@ -63,6 +66,7 @@ export default function Weather() {
           <div className="col-9">
             <input
               type="search"
+              value={city}
               placeholder="Enter a city..."
               className="form-control"
               autoFocus="on"
@@ -92,7 +96,9 @@ export default function Weather() {
           <div className="row">
             <div className="col-6">
               <div className="clearfix d-flex">
-                <img src={weatherData.icon} alt={weatherData.description} />
+                <div className="float-left">
+                  <WeatherIcon code={weatherData.icon} />
+                </div>
                 <div>
                   <span className="temperature">{weatherData.temperature}</span>
                   <span className="unit">°C</span>
