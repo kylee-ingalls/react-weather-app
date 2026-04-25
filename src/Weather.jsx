@@ -3,12 +3,15 @@ import axios from "axios";
 import "./Weather.css";
 import WeatherIcon from "./WeatherIcon";
 import WeatherTemperature from "./WeatherTemperature";
+import WeatherForecast from "./WeatherForecast";
 
 export default function Weather() {
   const [city, setCity] = useState("");
   const [weatherData, setWeatherData] = useState({ ready: false });
+  const [forecastData, setForecastData] = useState(null);
 
   function handleResponse(response) {
+    console.log(response.data);
     setWeatherData({
       ready: true,
       city: response.data.city,
@@ -19,14 +22,24 @@ export default function Weather() {
       humidity: response.data.temperature.humidity,
       wind: response.data.wind.speed,
     });
+
+    setForecastData(response.data.daily);
   }
 
   function search() {
     if (!city.trim()) return;
-
+  
     const apiKey = "cb60bbeo7bd602d062ff8d664eta0043";
-    const apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
-    axios.get(apiUrl).then(handleResponse);
+  
+    const currentUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
+    const forecastUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}`;
+  
+    axios.get(currentUrl).then(handleResponse);
+    axios.get(forecastUrl).then(handleForecastResponse);
+  }
+
+  function handleForecastResponse(response) {
+    setForecastData(response.data.daily);
   }
 
   function handleSubmit(event) {
@@ -101,7 +114,7 @@ export default function Weather() {
                   <WeatherIcon code={weatherData.icon} />
                 </div>
                 <div>
-                <WeatherTemperature celsius={weatherData.temperature} />
+                  <WeatherTemperature celsius={weatherData.temperature} />
                 </div>
               </div>
             </div>
@@ -113,6 +126,8 @@ export default function Weather() {
               </ul>
             </div>
           </div>
+
+          <WeatherForecast data={forecastData} />
         </>
       )}
     </div>
