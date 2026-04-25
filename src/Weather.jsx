@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./Weather.css";
 import WeatherIcon from "./WeatherIcon";
+import WeatherTemperature from "./WeatherTemperature";
 
 export default function Weather() {
   const [city, setCity] = useState("");
@@ -100,8 +101,7 @@ export default function Weather() {
                   <WeatherIcon code={weatherData.icon} />
                 </div>
                 <div>
-                  <span className="temperature">{weatherData.temperature}</span>
-                  <span className="unit">°C</span>
+                <WeatherTemperature celsius={weatherData.temperature} />
                 </div>
               </div>
             </div>

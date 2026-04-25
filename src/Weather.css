@@ -64,3 +64,53 @@
   position: relative;
   top: -20px;
 }
+
+.temperature-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.unit {
+  font-size: 14px;
+}
+
+.unit a {
+  text-decoration: none;
+  color: #007bff;
+  cursor: pointer;
+}
+
+.unit a:hover {
+  text-decoration: underline;
+}
+
+.unit strong {
+  color: #000;
+  font-weight: 600;
+}
+
+.temperature-container {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.temperature {
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.unit {
+  font-size: 14px;
+}
+
+.unit a {
+  color: #007bff;
+  text-decoration: none;
+  margin-left: 4px;
+}
+
+.unit strong {
+  margin-right: 4px;
+}
