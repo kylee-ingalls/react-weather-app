@@ -9,10 +9,14 @@ export default function WeatherForecast(props) {
         {props.data.map((day, index) => {
           let max = Math.round(day.temperature.maximum);
           let min = Math.round(day.temperature.minimum);
+          let date = new Date(day.time * 1000);
+
+let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+let weekday = days[date.getDay()];
 
           return (
             <div className="col" key={day.time}>
-              <div className="forecast-day">{day.day}</div>
+              <div className="forecast-day">{weekday}</div>
 
               <img
                 src={day.condition.icon_url}
